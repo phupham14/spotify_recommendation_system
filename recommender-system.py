@@ -3,16 +3,19 @@ import streamlit as st
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-ClientID = "4efed7dd25a6453fb68a8e630a77b67e" 
+ClientID = "4efed7dd25a6453fb68a8e630a77b67e"
 ClientSecret = "46539d0be41c41f884d5117fbf72f959"
 
 # Initialize the Spotify client
-client_credentials_manager = SpotifyClientCredentials(client_id = ClientID, client_secret = ClientSecret)
-sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
+client_credentials_manager = SpotifyClientCredentials(
+    client_id=ClientID, client_secret=ClientSecret
+)
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
 
 def get_song_album_cover_url(song_name, artist_name):
     search_query = f"track:{song_name} artist:{artist_name}"
-    results = sp.search(q = search_query, type = "track")
+    results = sp.search(q=search_query, type="track")
 
     if results and results["tracks"]["items"]:
         track = results["tracks"]["items"][0]
@@ -22,9 +25,12 @@ def get_song_album_cover_url(song_name, artist_name):
     else:
         return "https://i.postimg.cc/0QNxYz4V/social.png"
 
+
 def recommend(song):
-    index = music[music['song'] == song].index[0]
-    distances = sorted(list(enumerate(similarity[index])), reverse = True, key = lambda x: x[1])
+    index = music[music["song"] == song].index[0]
+    distances = sorted(
+        list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1]
+    )
     recommended_music_names = []
     recommended_music_posters = []
     for i in distances[1:6]:
@@ -32,24 +38,24 @@ def recommend(song):
         artist = music.iloc[i[0]].artist
         print(artist)
         print(music.iloc[i[0]].song)
-        recommended_music_posters.append(get_song_album_cover_url(music.iloc[i[0]].song, artist))
+        recommended_music_posters.append(
+            get_song_album_cover_url(music.iloc[i[0]].song, artist)
+        )
         recommended_music_names.append(music.iloc[i[0]].song)
 
-    return recommended_music_names,recommended_music_posters
+    return recommended_music_names, recommended_music_posters
 
-st.header('Music Recommender System')
-music = pickle.load(open('df.pkl','rb'))
-similarity = pickle.load(open('similarity.pkl','rb'))
 
-music_list = music['song'].values
-selected_movie = st.selectbox(
-    "Type or select a song from the dropdown",
-    music_list
-)
+st.header("Music Recommender System")
+music = pickle.load(open("D:\\archive\\df.pkl", "rb"))
+similarity = pickle.load(open("D:\\archive\\similarity.pkl", "rb"))
 
-if st.button('Show Recommendation'):
-    recommended_music_names,recommended_music_posters = recommend(selected_movie)
-    col1, col2, col3, col4, col5= st.columns(5)
+music_list = music["song"].values
+selected_movie = st.selectbox("Type or select a song from the dropdown", music_list)
+
+if st.button("Show Recommendation"):
+    recommended_music_names, recommended_music_posters = recommend(selected_movie)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text(recommended_music_names[0])
         st.image(recommended_music_posters[0])
