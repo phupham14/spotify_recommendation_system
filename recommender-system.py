@@ -6,7 +6,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 ClientID = "4efed7dd25a6453fb68a8e630a77b67e"
 ClientSecret = "46539d0be41c41f884d5117fbf72f959"
 
-# Initialize the Spotify client
+# Khởi tạo Spotify client
 client_credentials_manager = SpotifyClientCredentials(
     client_id=ClientID, client_secret=ClientSecret
 )
@@ -46,14 +46,14 @@ def recommend(song):
     return recommended_music_names, recommended_music_posters
 
 
-st.header("Music Recommender System")
-music = pickle.load(open("D:\\archive\\df.pkl", "rb"))
-similarity = pickle.load(open("D:\\archive\\similarity.pkl", "rb"))
+st.header("Hệ thống gợi ý bài hát trên nền tảng Spotify")
+music = pickle.load(open("D:\\Programming\\Python\\recommendation system\\archive\\df.pkl", "rb"))
+similarity = pickle.load(open("D:\\Programming\\Python\\recommendation system\\archive\\similarity.pkl", "rb"))
 
 music_list = music["song"].values
-selected_movie = st.selectbox("Type or select a song from the dropdown", music_list)
+selected_movie = st.selectbox("Lựa chọn bài hát ở bên dưới ", music_list)
 
-if st.button("Show Recommendation"):
+if st.button("Danh sách gợi ý"):
     recommended_music_names, recommended_music_posters = recommend(selected_movie)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
@@ -62,7 +62,6 @@ if st.button("Show Recommendation"):
     with col2:
         st.text(recommended_music_names[1])
         st.image(recommended_music_posters[1])
-
     with col3:
         st.text(recommended_music_names[2])
         st.image(recommended_music_posters[2])
