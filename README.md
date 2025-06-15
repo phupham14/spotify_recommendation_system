@@ -27,29 +27,6 @@
 - Sử dụng `cosine_similarity` từ thư viện **scikit-learn** để đo độ tương đồng giữa các vector.
 - Độ tương đồng cosine phản ánh mức độ giống nhau về **nội dung** giữa các bài hát.
 
-## ⚠️ **4. Các khó khăn cần tiếp tục giải quyết**
-
-### ❗ **Xử lý dữ liệu không chuẩn**
-
-- Dữ liệu có thể chứa:
-  - Ký tự đặc biệt
-  - Dấu câu
-  - Ký tự lỗi
-- Cần làm sạch dữ liệu kỹ lưỡng trước khi xử lý văn bản.
-
-### ❗ **Hiệu suất tính toán**
-
-- Các bước xử lý (TF-IDF, cosine similarity) có thể tiêu tốn nhiều **thời gian** và **tài nguyên** trên dữ liệu lớn.
-- Cần tối ưu mã hoặc dùng các phương pháp như:
-  - **Sparse matrix**
-  - **Approximate Nearest Neighbors (ANN)**
-
-### ❗ **Xử lý lỗi và ngoại lệ**
-
-- Cần bắt và xử lý các trường hợp như:
-  - Dữ liệu không hợp lệ từ **Spotify API**
-  - Lỗi trong lúc tính toán
-  - Lỗi khi tải hoặc đọc dữ liệu
 
 ### ❗ **Tối ưu hóa gợi ý**
 
